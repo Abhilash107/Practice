@@ -1,1 +1,1 @@
-export const DB_NAME = "sign_log"
+export const DB_NAME = "Practice"
