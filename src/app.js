@@ -1,15 +1,24 @@
 import express from "express";
+import path from "express"
+import cors from "cors";
+import cookieParser from "cookie-parser"
 
-const app = express()
+const app = express();
 
-// app.listen(3000, ()=>{
-//     console.log("Listening on 3000");
-    
-// })
 
-app.get("/", (req,res)=>{
-    
-    res.send("jjj")
-    
-})
-export { app}
+app.use(express.json({limit: "20kb"}))
+
+app.use(cors({
+    origin: process.env.CORS_ORIGIN,
+    credentials: true
+}))
+
+app.use(express.urlencoded({
+    extended: true,
+    limit: "20kb"
+}))
+app.use(express.static("public"))
+
+app.use(cookieParser())
+
+export { app }
