@@ -12,6 +12,7 @@
 //         }
 //     }
 // }
+// reqHandler is an async function, so using Promise here
 const asyncHandler = (reqHandler) =>{
     return (req, res, next) =>{
         Promise
