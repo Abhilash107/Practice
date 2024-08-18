@@ -4,11 +4,6 @@ import cors from "cors";
 import cookieParser from "cookie-parser"
 
 const app = express();
-app.get('/', (req, res)=>{
-    const filePath = path.join("", 'index.html');
-    res.sendFile(filePath);
-})
-
 
 app.use(express.json({limit: "20kb"}))
 

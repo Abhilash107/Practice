@@ -25,3 +25,7 @@ const asyncHandler = (reqHandler) =>{
 
 
 export { asyncHandler };
+
+//asyncHandler --> higher order takes a function(route handler) as argument and returns a function 
+//reqHandler --> route handler (controller/function) which performs the DB and server-side operation
+//It's an async function, to handle it, we use a promise to catch any errors.

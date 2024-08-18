@@ -2,7 +2,6 @@ import mongoose, {Schema} from "mongoose";
 import jwt from 'jsonwebtoken';
 import bcrypt from "bcrypt";
 
-
 const userSchema = new Schema({
     username:{
         type:String,
@@ -33,9 +32,11 @@ const userSchema = new Schema({
 
 //save password in the DB
 userSchema.pre("save", async function(next){
+    //check if password is modified
     if(!this.isModified("password")){
         return next()
     }
+    // if modified, then use hashing to encrypt it
     this.password = await bcrypt.hash(this.password, 10)
     next()
 })
@@ -45,7 +46,9 @@ userSchema.method.isPasswordCorrect = async function(password){
     return await bcrypt.compare(password, this.password)
 }
 
-//generateAccessToken and RefreshToken
+//generateAccessToken
+//jwt.sign( {payload}, {secret key}, {expiresIn})
+
 userSchema.methods.generateAccessToken = function(){
     return jwt.sign(
         {
@@ -61,6 +64,8 @@ userSchema.methods.generateAccessToken = function(){
     )
 } 
 
+
+//generateRefreshToken
 userSchema.methods.generateRefreshToken = function(){
     return jwt.sign(
         {
